@@ -1,15 +1,15 @@
 
 <#PSScriptInfo
 
-.VERSION 1.0.0
+.VERSION 1.0.2
 
-.GUID 71ead9eb-dc10-45b1-82a7-4380826765bd
+.GUID 8c1277ae-21d4-4ff6-af6f-61112f3ac7c1
 
-.AUTHOR Andre Hohenstein Contact: a.hohenstein@outlook.com / https://twitter.com/AndreHohenstein
+.AUTHOR Andre Hohenstein
 
 .COMPANYNAME Andre Hohenstein IT-Consulting & Training
 
-.COPYRIGHT © 2020 by André Hohenstein - Alle Rechte vorbehalten
+.COPYRIGHT Â© 2020 by AndrÃ© Hohenstein - Alle Rechte vorbehalten
 
 .TAGS Edge Script PowerShell GPO ActiveDirectory GroupPolicyObject WMI GPOReport Report Remote Invoke Automation
 
@@ -19,25 +19,33 @@
 
 .ICONURI https://raw.githubusercontent.com/AndreHohenstein/GroupPolicy/master/Edge/media/powershell.png
 
-.EXTERNALMODULEDEPENDENCIES ActiveDirectory,GPWmiFilter,GroupPolicy 
+.EXTERNALMODULEDEPENDENCIES 
 
-.REQUIREDSCRIPTS None
+.REQUIREDSCRIPTS
 
-.EXTERNALSCRIPTDEPENDENCIES None
+.EXTERNALSCRIPTDEPENDENCIES
 
 .RELEASENOTES
 1.0.0 Initial .ps1 script version of New-GPOEdgeSettings
+1.0.1 change in Description
+1.0.2 any change in Description
 
 .PRIVATEDATA
 
-#>
+#> 
+
+
 
 <# 
 
 .DESCRIPTION 
  Create a new GPO for Microsoft Edge 80 or above with WMI-Filter, requirements for all Steps with help
  of external Modul for create WMI Filter with PowerShell: https://www.powershellgallery.com/packages/GPWmiFilter.
- That Script is compatible and tested with Windows 10 1809 or above and PowerShell 5.1 or 7.0.3 . 
+ That Script is compatible and tested with Windows 10 1809 or above and PowerShell 5.1 or 7.0.3
+ Specifies PowerShell modules that the script requires:
+ - ActiveDirectory
+ - GroupPolicy
+ - GPWmiFilter  
 
 #> 
 # Check for administrative rights
@@ -78,7 +86,7 @@ if ($PSVersionTable.PSVersion.Major -gt 5)
 }
 else
 {
-    Write-Host "Boo Try the new cross-platform PowerShell – https://aka.ms/pscore6" -ForegroundColor Yellow
+    Write-Host "Boo Try the new cross-platform PowerShell â€“ https://aka.ms/pscore6" -ForegroundColor Yellow
 
     Import-Module ActiveDirectory -wa 0
 
@@ -180,12 +188,12 @@ $GPol | Set-GPWmiFilterAssignment -Filter $WmiFilterName -WA 0
 
 
 # Microsoft Edge Settings
-# Browserdaten löschen, wenn Microsoft Edge geschlossen wird: Aktiviert
+# Browserdaten lÃ¶schen, wenn Microsoft Edge geschlossen wird: Aktiviert
 Set-GPRegistryValue -Name $GPOName `
                     -Key "HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Edge\" `
                     -ValueName "ClearBrowsingDataOnExit" `
                     -Type DWord -Value 1 | Out-Null
-# Löschen von zwischengespeicherten Bildern und Dateien nach dem Schließen von Microsoft Edge: Aktiviert
+# LÃ¶schen von zwischengespeicherten Bildern und Dateien nach dem SchlieÃŸen von Microsoft Edge: Aktiviert
 Set-GPRegistryValue -Name $GPOName `
                     -Key "HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Edge\" `
                     -ValueName "ClearCachedImagesAndFilesOnExit" `
@@ -221,32 +229,32 @@ Set-GPRegistryValue -Name $GPOName `
                     -ValueName "PromptForDownloadLocation" `
                     -Type DWord -Value 1 | Out-Null
 
-# Einen Benutzer benachrichtigen, dass ein Neustart des Browsers für ausstehende Updates empfohlen wird oder erforderlich ist: (Erforderlich) 
+# Einen Benutzer benachrichtigen, dass ein Neustart des Browsers fÃ¼r ausstehende Updates empfohlen wird oder erforderlich ist: (Erforderlich) 
 Set-GPRegistryValue -Name $GPOName `
                     -Key "HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Edge\" `
                     -ValueName "RelaunchNotification" `
                     -Type DWord -Value 2 | Out-Null
 
-# Zeitraum für Aktualisierungsbenachrichtigungen festlegen: "Aktiviert" (3600000 = 1 Stunden)
+# Zeitraum fÃ¼r Aktualisierungsbenachrichtigungen festlegen: "Aktiviert" (3600000 = 1 Stunden)
 Set-GPRegistryValue -Name $GPOName `
                     -Key "HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Edge\" `
                     -ValueName "RelaunchNotificationPeriod" `
                     -Type DWord -Value 3600000 | Out-Null
 
-# Zulassen das Benutzer von der HTTPS-Warnungsseite aus fortfahren können: "Deaktiviert" 
+# Zulassen das Benutzer von der HTTPS-Warnungsseite aus fortfahren kÃ¶nnen: "Deaktiviert" 
 Set-GPRegistryValue -Name $GPOName `
                     -Key "HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Edge\" `
                     -ValueName "SSLErrorOverrideAllowed" `
                     -Type DWord -Value 0 | Out-Null
 
 
-# Aktivieren Sie ein TLS 1.3-Sicherheitsfeature für loakle Vertrauensanker: "Aktiviert" 
+# Aktivieren Sie ein TLS 1.3-Sicherheitsfeature fÃ¼r loakle Vertrauensanker: "Aktiviert" 
 Set-GPRegistryValue -Name $GPOName `
                     -Key "HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Edge\" `
                     -ValueName "TLS13HardeningForLocalAnchorsEnabled" `
                     -Type DWord -Value 1 | Out-Null
 
-# Eindruck beim ersten Ausführen und Begrüßungsbildschrim ausblenden: "Aktiviert"
+# Eindruck beim ersten AusfÃ¼hren und BegrÃ¼ÃŸungsbildschrim ausblenden: "Aktiviert"
 Set-GPRegistryValue -Name $GPOName `
                     -Key "HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Edge\" `
                     -ValueName "HideFirstRunExperience" `
@@ -258,12 +266,12 @@ Set-GPRegistryValue -Name $GPOName `
                     -ValueName "SSLVersionMin" `
                     -Type String -Value tls1.2 | Out-Null
 
-# Blockieren der Nachverfolgung der Webbrowsing-Aktivitäten von Benutzern: "Aktiviert" > Ausgelichen (blockiert schädliche Tracker und Tracker von Websites... 
+# Blockieren der Nachverfolgung der Webbrowsing-AktivitÃ¤ten von Benutzern: "Aktiviert" > Ausgelichen (blockiert schÃ¤dliche Tracker und Tracker von Websites... 
 Set-GPRegistryValue -Name $GPOName `
                     -Key "HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Edge\" `
                     -ValueName "TrackingPrevention" -Type String -Value 2 | Out-Null
 
-# Cookies konfigurieren: "Aktiviert: Cookies für die Dauer der Sitzung speichern:
+# Cookies konfigurieren: "Aktiviert: Cookies fÃ¼r die Dauer der Sitzung speichern:
 Set-GPRegistryValue -Name "Microsoft Edge Settings" `
                     -Key "HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Edge\" `
                     -ValueName "DefaultCookiesSetting" `
@@ -275,7 +283,7 @@ Set-GPRegistryValue -Name "Microsoft Edge Settings" `
                     -ValueName "SmartScreenEnabled" `
                     -Type DWord -Value 1 | Out-Null
 
-# Microsoft Defender SmartScreen konfigurieren und potenziell unerwünsche Apps zu blocken: "Aktiviert"
+# Microsoft Defender SmartScreen konfigurieren und potenziell unerwÃ¼nsche Apps zu blocken: "Aktiviert"
 Set-GPRegistryValue -Name "Microsoft Edge Settings" `
                     -Key "HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Edge\" `
                     -ValueName "SmartScreenPuaEnabled" `
@@ -287,13 +295,13 @@ Set-GPRegistryValue -Name "Microsoft Edge Settings" `
                     -ValueName "DefaultSearchProviderEnabled" `
                     -Type DWord -Value 1 | Out-Null
 
-# Gibt das Bildsuchfeature für den standardmäßigen Suchanbieter an: "Aktiviert:
+# Gibt das Bildsuchfeature fÃ¼r den standardmÃ¤ÃŸigen Suchanbieter an: "Aktiviert:
 Set-GPRegistryValue -Name "Microsoft Edge Settings" `
                     -Key "HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Edge\" `
                     -ValueName "DefaultSearchProviderImageURL" `
                     -Type String -Value '{google:baseURL}searchbyimage/upload' | Out-Null
 
-# Parameter für eine Bild-URL, die POST verwendet: "Aktiviert:
+# Parameter fÃ¼r eine Bild-URL, die POST verwendet: "Aktiviert:
 Set-GPRegistryValue -Name "Microsoft Edge Settings" `
                     -Key "HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Edge\" `
                     -ValueName "DefaultSearchProviderImageURLPostParams" `
@@ -306,25 +314,25 @@ Set-GPRegistryValue -Name "Microsoft Edge Settings" `
                     -ValueName "DefaultSearchProviderName" `
                     -Type String -Value 'google' | Out-Null
 
-# Such-URL für den Standardsuchanbieter: "Aktiviert
+# Such-URL fÃ¼r den Standardsuchanbieter: "Aktiviert
 Set-GPRegistryValue -Name "Microsoft Edge Settings"  `
                     -Key "HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Edge\" `
                     -ValueName "DefaultSearchProviderSearchURL" `
                     -Type String -Value '{google:baseURL}search?q={searchTerms}&{google:RLZ}{google:originalQueryForSuggestion}{google:assistedQueryStats}{google:searchFieldtrialParameter}{google:searchClient}{google:sourceId}ie={inputEncoding}' | Out-Null
 
-# URL für die neue Tabseite konfigurieren: about://blank (leere Seite)
+# URL fÃ¼r die neue Tabseite konfigurieren: about://blank (leere Seite)
 Set-GPRegistryValue -Name "Microsoft Edge Settings" `
                     -Key "HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Edge\" `
                     -ValueName "NewTabPageLocation" `
                     -Type String -Value about://blank | Out-Null
 
-# Aktion, die beim Start ausgeführt werden soll: Liste mit URLs öffnen:
+# Aktion, die beim Start ausgefÃ¼hrt werden soll: Liste mit URLs Ã¶ffnen:
 Set-GPRegistryValue -Name "Microsoft Edge Settings" `
                     -Key "HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Edge\" `
                     -ValueName "RestoreOnStartup" `
                     -Type DWord -Value 4 | Out-Null
 
-# Webseite, die beim Start des Browsers geöffnet werden soll: Anzeigen... Wert: https://www.bing.com
+# Webseite, die beim Start des Browsers geÃ¶ffnet werden soll: Anzeigen... Wert: https://www.bing.com
 Set-GPRegistryValue -Name "Microsoft Edge Settings" `
                     -Key "HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Edge\RestoreOnStartupURLs" `
                     -ValueName "1" -Type String `
