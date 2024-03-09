@@ -211,7 +211,7 @@ Set-GPRegistryValue -Name $GPOName `
                     -ValueName "HideFirstRunExperience" `
                     -Type DWord -Value 1 | Out-Null
 
-# Hubs Seitenleiste anzeigen (Copilot deaktivieren): "deaktiviert"
+# Hubs-Seitenleiste anzeigen (Copilot deaktivieren): "deaktiviert"
 Set-GPRegistryValue -Name $GPOName `
                     -Key "HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Edge\" `
                     -ValueName "HubsSidebarEnabled" `
