@@ -198,13 +198,6 @@ Set-GPRegistryValue -Name $GPOName `
                     -ValueName "SSLErrorOverrideAllowed" `
                     -Type DWord -Value 0 | Out-Null
 
-
-# Aktivieren Sie ein TLS 1.3-Sicherheitsfeature fÃ¼r loakle Vertrauensanker: "Aktiviert" 
-Set-GPRegistryValue -Name $GPOName `
-                    -Key "HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Edge\" `
-                    -ValueName "TLS13HardeningForLocalAnchorsEnabled" `
-                    -Type DWord -Value 1 | Out-Null
-
 # Eindruck beim ersten Ausfuehren und Begruessungsbildschrim ausblenden: "Aktiviert"
 Set-GPRegistryValue -Name $GPOName `
                     -Key "HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Edge\" `
