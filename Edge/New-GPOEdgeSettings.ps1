@@ -186,6 +186,12 @@ Set-GPRegistryValue -Name $GPOName `
                     -ValueName "RelaunchNotification" `
                     -Type DWord -Value 2 | Out-Null
 
+# Senden erforderlicher und optionaler Diagnosedaten zur Browsernutzung: "Erforderliche Daten)
+Set-GPRegistryValue -Name $GPOName `
+                    -Key "HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Edge\" `
+                    -ValueName "DiagnosticData" `
+                    -Type DWord -Value 1 | Out-Null
+
 # Zeitraum fuer Aktualisierungsbenachrichtigungen festlegen: "Aktiviert" (3600000 = 1 Stunden)
 Set-GPRegistryValue -Name $GPOName `
                     -Key "HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Edge\" `
