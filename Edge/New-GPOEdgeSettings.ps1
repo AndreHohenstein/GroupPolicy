@@ -221,12 +221,12 @@ Set-GPRegistryValue -Name $GPOName `
 Set-GPRegistryValue -Name $GPOName `
                     -Key "HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Edge\" `
                     -ValueName "SSLVersionMin" `
-                    -Type String -Value tls1.2 | Out-Null
+                    -Type String -Value 'tls1.2' | Out-Null
 
 # Blockieren der Nachverfolgung der Webbrowsing-Aktivitaeten von Benutzern: "Aktiviert" > Ausgelichen (blockiert schaedliche Tracker und Tracker von Websites... 
 Set-GPRegistryValue -Name $GPOName `
                     -Key "HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Edge\" `
-                    -ValueName "TrackingPrevention" -Type String -Value 2 | Out-Null
+                    -ValueName "TrackingPrevention" -Type DWord -Value 2 | Out-Null
 
 # Cookies konfigurieren: "Aktiviert: Cookies fuer die Dauer der Sitzung speichern:
 Set-GPRegistryValue -Name "Microsoft Edge Settings" `
@@ -281,7 +281,7 @@ Set-GPRegistryValue -Name "Microsoft Edge Settings"  `
 Set-GPRegistryValue -Name "Microsoft Edge Settings" `
                     -Key "HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Edge\" `
                     -ValueName "NewTabPageLocation" `
-                    -Type String -Value about://blank | Out-Null
+                    -Type String -Value 'about:blank' | Out-Null
 
 # Aktion, die beim Start ausgefuehrt werden soll: Liste mit URLs oeffnen:
 Set-GPRegistryValue -Name "Microsoft Edge Settings" `
@@ -293,7 +293,7 @@ Set-GPRegistryValue -Name "Microsoft Edge Settings" `
 Set-GPRegistryValue -Name "Microsoft Edge Settings" `
                     -Key "HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Edge\RestoreOnStartupURLs" `
                     -ValueName "1" -Type String `
-                    -Value https://www.google.de| Out-Null
+                    -Value 'https://www.google.de' | Out-Null
 
 
 # Link the GPO to the Domain:
