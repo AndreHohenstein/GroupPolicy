@@ -56,16 +56,18 @@ if (-NOT([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentit
 $version = [Environment]::OSVersion.Version.ToString(2)
 $build   = (Get-ItemProperty -Path "HKLM:\Software\Microsoft\Windows NT\CurrentVersion").ReleaseId
     
- if ($version -ge "10.0") {
-   if ($build -ge "1809") {
+if ($version -ge "10.0") {
+    if ($build -ge "1809") {
 
-$check = Get-WindowsCapability -Online |
-         Where-Object {$_.Name -like "Rsat.ActiveDirectory*" -OR $_.Name -like "Rsat.GroupPolicy*" -AND $_.State -eq "NotPresent"}
+        $check = Get-WindowsCapability -Online |
+                 Where-Object { ($_.Name -like "Rsat.ActiveDirectory*" -OR $_.Name -like "Rsat.GroupPolicy*") -AND $_.State -eq "NotPresent" }
 
-$check | foreach {$Name = $_.Name 
-         Add-WindowsCapability -Online -Name $Name}
-                             }
-                             }
+        $check | foreach {
+            $Name = $_.Name
+            Add-WindowsCapability -Online -Name $Name
+        }
+    }
+}
 else
 {
     Write-Warning "Install RSAT Feature on Demand Requires Windows 10 1809 or later Your Windows $version is $build"
